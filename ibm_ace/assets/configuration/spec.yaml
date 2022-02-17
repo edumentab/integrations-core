@@ -1,0 +1,87 @@
+name: IBM ACE
+files:
+- name: ibm_ace.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: mq_server
+      required: true
+      description: |
+        The server IBM MQ is running on.
+      value:
+        type: string
+        minLength: 1
+    - name: mq_port
+      required: true
+      description: |
+        The port IBM MQ is listening on.
+      value:
+        example: 1414
+        type: integer
+    - name: channel
+      required: true
+      description: |
+        The IBM MQ channel with which to use for subscriptions.
+      value:
+        type: string
+        minLength: 1
+    - name: queue_manager
+      required: true
+      description: |
+        The IBM MQ queue manager with which to use.
+      value:
+        type: string
+        minLength: 1
+    - name: mq_user
+      description: |
+        The user with which to authenticate to IBM MQ.
+      value:
+        type: string
+        minLength: 1
+    - name: mq_password
+      secret: true
+      description: |
+        The password with which to authenticate to IBM MQ.
+      value:
+        type: string
+        minLength: 1
+    - name: resource_statistics
+      description: |
+        Whether or not collect resource statistics.
+      value:
+        example: true
+        type: boolean
+    - name: message_flows
+      description: |
+        Whether or not collect information about message flows.
+      value:
+        example: true
+        type: boolean
+    - name: persist_connections
+      description: |
+        Whether or not to keep connections open rather than disconnecting after every check run.
+      value:
+        example: false
+        type: boolean
+    - name: mqcd_version
+      description: |
+        The channel definition version with which to use. Supported values are 1 to 9 (inclusive).
+        If you're having connection issues make sure it matches your IBM MQ version.
+        TLS encryption requires MQCD of version at least 7.
+      value:
+        example: 9
+        type: integer
+        enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+    - template: instances/default
